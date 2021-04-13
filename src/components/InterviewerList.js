@@ -1,6 +1,5 @@
 import React from "react";
 import "components/InterviewerList.scss";
-import classNames from 'classnames';
 import InterviewerListItem from "components/InterviewerListItem"
 
 
@@ -12,6 +11,7 @@ export default function InterviewerList(props) {
       name={x.name}
       avatar={x.avatar}
       selected={x.id === props.interviewer}
+      setInterviewer={event => props.setInterviewer(x.id)}
     />
   })
 
