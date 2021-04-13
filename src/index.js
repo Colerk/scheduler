@@ -1,8 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
-import "index.scss";
+import tweets from "./tweets.json";
 
-import Application from "components/Application";
+import "./styles.css";
 
-ReactDOM.render(<Application />, document.getElementById("root"));
