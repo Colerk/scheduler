@@ -18,6 +18,7 @@ import Delete from "components/Appointment/Delete";
 import Status from "components/Appointment/Status";
 import Error from "components/Appointment/Error";
 import Form from "components/Appointment/Form";
+import { Fragment } from 'react'
 
 
 
@@ -160,7 +161,7 @@ storiesOf("Appointment", module)
     onEdit={action("onEdit")} 
     onDelete={action("onDelete")}
     student="Lydia Miller-Jones"
-    interviewer={interviewers}
+    interview={interviewers[2]}
   />)
   .add("Delete", () => <Delete 
     message="Delete the appointment"
@@ -184,6 +185,22 @@ storiesOf("Appointment", module)
       onSave={action("onSave")}
       onCancel={action("onCancel")}
       />)
-
+    .add("Appointment Empty", () => (
+      <Fragment>
+        <Appointment id={1} time="12pm" />
+        <Appointment id="last" time="1pm" />
+      </Fragment>
+    ))
+    .add("Appointment Booked", () => (
+      <Fragment>
+        <Appointment
+          id={1}
+          time="12pm"
+          interview={{ student: "Lydia Miller-Jones", interviewer }}
+        />
+        <Appointment id="last" time="1pm" />
+      </Fragment>
+    ))
+    
 
 
