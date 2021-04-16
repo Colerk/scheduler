@@ -5,8 +5,7 @@ import DayListItem from "components/DayListItem";
 import DayList from "components/DayList";
 import { useState, useEffect } from "react";
 import Appointment from "components/Appointment";
-import { getAppointmentsForDay, getInterview } from "helpers/selectors";
-
+import { getAppointmentsForDay, getInterview, getInterviewersForDay } from "helpers/selectors";
 import axios from 'axios';
 
 
@@ -21,6 +20,9 @@ export default function Application(props) {
   });
 
   const dailyAppointments = getAppointmentsForDay(state, state.day);
+  const dailyInterviewers = getInterviewersForDay(state, state.day)
+
+
 
   const setDay = day => setState({ ...state, day });
   const setDays = days => setState(prev => ({ ...prev, days }));
@@ -33,22 +35,25 @@ export default function Application(props) {
     ])
     .then(all => {
         const [listAppointments, listDays, listInterviews] = all
-        console.log(listAppointments)
-        console.log(listDays)
-        console.log(listInterviews)
         setState(prev => ({...prev, appointments: listAppointments.data, days: listDays.data, interviewers: listInterviews.data }));
     })
   }, [])  
 
+  function bookInterview(id, interview) {
+    console.log(id, interview);
+  }
   
-  const list = dailyAppointments.map(x => {
 
+
+  const list = dailyAppointments.map(x => {
     const interview = getInterview(state, x.interview);
 
     return <Appointment 
       key={x.id}
-      interview={interview} 
       {...x}
+      interview={interview} 
+      interviewers={dailyInterviewers}
+      bookInterview={bookInterview}
       />
   })
 

@@ -17,22 +17,36 @@ function getAppointmentsForDay(state, day) {
   return newArr;
 }
 
-const getInterview = (state, interview) => {
-  let result = {}
+
+function getInterview(state, interview) {
   if (!interview) {
     return null;
   }
-  if (state.interviewers[interview.interviewer]) {
-    result = {
-      student: [interview.student].toString(),
-      interviewer: state.interviewers[interview.interviewer]
-    }
-  return result;
+  const { id, name, avatar } = state.interviewers[interview.interviewer];
+  return {
+    student: interview.student,
+    interviewer: { id: id, name: name, avatar: avatar }
   }
 }
 
+function getInterviewersForDay(state, day) {
 
-module.exports = { getAppointmentsForDay, getInterview }
+  const found = state.days.find(dayApp => dayApp.name === day);
+
+  if (!found) {
+    return [];
+  }
+
+  const newArr = found.interviewers.map(y => {
+    if (state.interviewers[y]) {
+      return state.interviewers[y]
+    }
+  });
+  
+  return newArr;
+}
+
+module.exports = { getAppointmentsForDay, getInterview, getInterviewersForDay }
 
 // {  
 //   "student": "Lydia Miller-Jones",
