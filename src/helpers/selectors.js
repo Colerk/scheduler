@@ -19,10 +19,13 @@ function getAppointmentsForDay(state, day) {
 
 
 function getInterview(state, interview) {
+  
   if (!interview) {
     return null;
   }
+
   const { id, name, avatar } = state.interviewers[interview.interviewer];
+  
   return {
     student: interview.student,
     interviewer: { id: id, name: name, avatar: avatar }

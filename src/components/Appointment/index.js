@@ -7,6 +7,8 @@ import useVisualMode from 'hooks/useVisualMode';
 import Form from "components/Appointment/Form";
 import Status from "components/Appointment/Status";
 import Delete from "components/Appointment/Delete";
+import Error from "components/Appointment/Error";
+
 
 
 
@@ -22,6 +24,10 @@ export default function Appointment(props) {
   const SAVING = 'SAVING';
   const DELETING = "DELETING";
   const CONFIRM = "CONFIRM";
+  const EDIT = "EDIT";
+  const ERROR_SAVE = "ERROR_SAVE";
+  const ERROR_DELETE = 'ERROR_DELETE';
+
 
   const { mode, transition, back } = useVisualMode(
     props.interview ? SHOW : EMPTY
@@ -33,11 +39,25 @@ export default function Appointment(props) {
       student: name,
       interviewer,
     };
+
     transition(SAVING)
+
     props.bookInterview(props.id, interview)
     .then(() =>{
       transition(SHOW)
     })
+    .catch((error) => {
+      transition(ERROR_SAVE, true)
+    })
+  }
+
+  function edit(name, interviewer) {
+    const interview = {
+      student: name,
+      interviewer,
+    };
+    transition(EDIT)
+    props.bookInterview(props.id, interview)
   }
 
   function cancel() {
@@ -45,6 +65,10 @@ export default function Appointment(props) {
     props.cancelInterview(props.id)
     .then(() => {
       transition(EMPTY)
+    })
+    .catch(() => {
+      transition(ERROR_DELETE, true)
+
     })
   }
 
@@ -61,6 +85,7 @@ export default function Appointment(props) {
     student={props.interview.student}
     interview={props.interview.interviewer}
     onDelete={confirmDelete}
+    onEdit={edit}
     />)}
     {mode === CREATE && <Form name="" 
     interviewers={props.interviewers} 
@@ -74,6 +99,19 @@ export default function Appointment(props) {
       onCancel={back}
       onConfirm={cancel}
       />}
-
+    {mode === EDIT && <Form 
+      name={props.name} 
+      interviewers={props.interviewers} 
+      onCancel={back}
+      onSave={save}
+    />}
+    {mode === ERROR_SAVE && <Error 
+      message="Could not save?"
+      onClick={back}
+      />}
+      {mode === ERROR_DELETE && <Error 
+      message="Could not save?"
+      onClick={back}
+      />}
     </>);
 }

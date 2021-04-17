@@ -8,11 +8,17 @@ export default function useVisualMode(initial) {
 
   const transition = (newMode, replace = false) => {
     if (replace) {
-      setMode(newMode)}
-    else { 
+      if (newMode === 'ERROR_SAVE') {
+        setHistory(prev => [...prev, newMode, "EMPTY"])
+      }
+      if (newMode === 'ERROR_DELETE') {
+        setHistory(prev => [...prev, newMode, "SHOW"])
+      }
       setHistory(prev => [...prev, newMode])
-      setMode(newMode)
+    } else { 
+      setHistory(prev => [...prev, newMode])
     }
+    setMode(newMode)
   }
 
   const back = (prev) => {
@@ -21,8 +27,6 @@ export default function useVisualMode(initial) {
       setMode(history[history.length - 1])
     }
   }
-
-
 
   return {mode, transition, back}
 
