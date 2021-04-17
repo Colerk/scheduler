@@ -30,12 +30,19 @@ export default function useApplicationData() {
     })
   }, [])
   
-  if (state.days[0]) {
-    console.log('statedays', state.days[0].spots)
+  const newSpotDay = (dayName, daysArr, add) => {
+    for (let day of daysArr) {
+      if (day.name === dayName) {
+        let newSpots = day.spots;
+        add ? newSpots += 1 : newSpots -= 1
+        return { ...day, spots: newSpots }
+      }
+    }
   }
 
-  // console.log('stateappointments', state.appointments)
-  // console.log('state', state)
+  const newDaysArr = (dayObj, daysArr) => {
+    return daysArr.map(day => day.name === dayObj.name ? dayObj : day);
+  }
 
 
   function cancelInterview (id) {
@@ -47,12 +54,15 @@ export default function useApplicationData() {
       ...state.appointments,
       [id]: appointment
     };
+
+    const days = newDaysArr(newSpotDay(state.day, state.days, true), state.days)
   
     return axios.delete(`/api/appointments/${id}`)
     .then(()=>{
       setState({
         ...state,
-        appointments
+        appointments,
+        days
       });
     })
    }
@@ -67,18 +77,18 @@ export default function useApplicationData() {
       [id]: appointment
     };
 
+    const days = newDaysArr(newSpotDay(state.day, state.days, null), state.days)
+
     return axios.put(`/api/appointments/${id}`, {interview} )
     .then(()=>{
       setState({
         ...state,
-        appointments
+        appointments,
+        days
       });
     })
   }
 
   return {state, setDay, cancelInterview, bookInterview}
 
-
 }
-
-// days.id.spots
