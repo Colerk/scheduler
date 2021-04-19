@@ -22,8 +22,6 @@ export default function Application(props) {
   const dailyAppointments = getAppointmentsForDay(state, state.day);
   const dailyInterviewers = getInterviewersForDay(state, state.day)
 
-  console.log("state", state)
-
   // const setDays = days => setState(prev => ({ ...prev, days }));
 
   const list = dailyAppointments.map(x => {

@@ -8,16 +8,13 @@ export default function useVisualMode(initial) {
 
   const transition = (newMode, replace = false) => {
     if (replace) {
-      if (newMode === 'ERROR_SAVE') {
-        setHistory(prev => [...prev, newMode, "EMPTY"])
+      setHistory((prev) => {
+        let replaceHist = prev.slice(0,1)
+        return [...replaceHist, newMode]
+      }) 
+    } else {
+        setHistory((prev) => [...prev, newMode])
       }
-      if (newMode === 'ERROR_DELETE') {
-        setHistory(prev => [...prev, newMode, "SHOW"])
-      }
-      setHistory(prev => [...prev, newMode])
-    } else { 
-      setHistory(prev => [...prev, newMode])
-    }
     setMode(newMode)
   }
 
