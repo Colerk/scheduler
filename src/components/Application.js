@@ -38,7 +38,7 @@ export default function Application(props) {
   })
 
   return (
-    <main className="layout">
+    <main className="layout" >
       <section className="sidebar">
         <img className="sidebar--centered"
           src="images/logo.png"
@@ -58,9 +58,9 @@ export default function Application(props) {
           alt="Lighthouse Labs"
         />
       </section>
-      <section className="schedule">
+      <section className="schedule" >
         {list}
-        <Appointment key="last" time="5pm" />
+        <Appointment key="last" time="5pm" data-testid="appointment"/>
       </section>
     </main>
   );
