@@ -20,7 +20,7 @@ function getAppointmentsForDay(state, day) {
 
 function getInterview(state, interview) {
   
-  if (!interview) {
+  if (!interview || !interview.interviewer) {
     return null;
   }
 
