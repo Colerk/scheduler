@@ -1,13 +1,10 @@
 import React from "react";
-
+import Header from "./Appointment/Header"
 import "components/Application.scss";
-import DayListItem from "components/DayListItem";
 import DayList from "components/DayList";
-import { useState, useEffect } from "react";
 import Appointment from "components/Appointment";
 import { getAppointmentsForDay, getInterview, getInterviewersForDay } from "helpers/selectors";
 import useApplicationData from "hooks/useApplicationData";
-
 
 
 export default function Application(props) {
@@ -22,8 +19,7 @@ export default function Application(props) {
   const dailyAppointments = getAppointmentsForDay(state, state.day);
   const dailyInterviewers = getInterviewersForDay(state, state.day)
 
-  // const setDays = days => setState(prev => ({ ...prev, days }));
-
+  // provides each appointment from the list of appointments
   const list = dailyAppointments.map(x => {
     const interview = getInterview(state, x.interview);
 
@@ -60,6 +56,7 @@ export default function Application(props) {
       </section>
       <section className="schedule" >
         {list}
+        <Header time="5pm" />
       </section>
     </main>
   );

@@ -1,4 +1,5 @@
 
+// Finds the appointments for each day. Used in Application.js
 
 function getAppointmentsForDay(state, day) {
 
@@ -17,7 +18,7 @@ function getAppointmentsForDay(state, day) {
   return newArr;
 }
 
-
+// Used to populate the interviews with the correct data
 function getInterview(state, interview) {
   
   if (!interview || !interview.interviewer) {
@@ -32,6 +33,7 @@ function getInterview(state, interview) {
   }
 }
 
+// Finds the interviewers available for each day. Used in Application.js
 function getInterviewersForDay(state, day) {
 
   const found = state.days.find(dayApp => dayApp.name === day);

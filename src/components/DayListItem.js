@@ -2,7 +2,7 @@ import React from "react";
 import 'components/DayListItem.scss';
 import classNames from 'classnames';
 
-
+// provides content for each individual day, where DayList maps over them
 export default function DayListItem(props) {
 
   function formatSpots(props) {
@@ -20,8 +20,6 @@ export default function DayListItem(props) {
     "day-list__item": true
   })
 
-
-  
   return (
     <li data-testid="day" className={dayClass} onClick={() => props.setDay(props.name)}>
       <h2 className="text--regular">{props.name}</h2>

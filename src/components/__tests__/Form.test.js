@@ -1,22 +1,8 @@
-/*
-  We are rendering `<Application />` down below, so we need React.createElement
-*/
+
 import React from "react";
-
-/*
-  We import our helper functions from the react-testing-library
-  The render function allows us to render Components
-*/
 import { render } from "@testing-library/react";
-
-/*
-  We import the component that we are testing
-*/
 import Appointment from "components/Appointment";
-
-
 import { fireEvent } from "@testing-library/react";
-
 import Form from "components/Appointment/Form";
 
 /*
@@ -37,18 +23,23 @@ describe("Appointment", () => {
 
   it("submits the name entered by the user", () => {
     const onSave = jest.fn();
-    const { getByText, getByPlaceholderText } = render(
+    const { getByText, getByPlaceholderText, getByTestId } = render(
       <Form interviewers={interviewers} onSave={onSave} />
     );
 
+    const interviewerId = 1;
+    
     const input = getByPlaceholderText("Enter Student Name");
 
     fireEvent.change(input, { target: { value: "Lydia Miller-Jones" } });
-    fireEvent.click(getByText("Save"));
 
+    fireEvent.click(getByTestId("person"));
+    fireEvent.click(getByText("Save"));
+    
     expect(onSave).toHaveBeenCalledTimes(1);
-    expect(onSave).toHaveBeenCalledWith("Lydia Miller-Jones", null);
-    });
+    expect(onSave).toHaveBeenCalledWith("Lydia Miller-Jones", interviewerId);
+  
+  });
 
     
 
@@ -68,6 +59,7 @@ describe("Appointment", () => {
     fireEvent.change(getByPlaceholderText("Enter Student Name"), {
       target: { value: "Lydia Miller-Jones" }
     });
+    
   
     fireEvent.click(getByText("Cancel"));
   

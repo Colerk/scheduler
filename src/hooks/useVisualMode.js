@@ -1,6 +1,7 @@
-import { renderHook, act } from "@testing-library/react-hooks";
 import React, { useState } from 'react';
 
+
+  // used to manage history of state
 export default function useVisualMode(initial) {
 
   const [mode, setMode] = useState(initial);

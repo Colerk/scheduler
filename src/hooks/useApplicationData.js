@@ -29,7 +29,8 @@ export default function useApplicationData() {
 
     })
   }, [])
-  
+
+  // Counts available spots for each day  
   const getSpotsForDay = function (dayObj, appointments) {
 
     let spots = 0;
@@ -42,12 +43,11 @@ export default function useApplicationData() {
     return spots;
   }
 
+  // used to update days with appropriate spots
   const updateSpots = function (dayName, days, appointments) {
 
-    // Find the day Object
     const dayObj = days.find(x => x.name === dayName);
 
-    // calculate spots for this day
     const spots = getSpotsForDay(dayObj, appointments);
 
     const newDay = {
@@ -81,7 +81,7 @@ export default function useApplicationData() {
 
   function bookInterview(id, interview) {
 
-    return axios.put(`/api/appointments/${id}`, { interview: interview })
+    return axios.put(`/api/appointments/${id}`, { interview })
       .then(() => {
         const appointment = {
           ...state.appointments[id],

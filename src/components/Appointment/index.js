@@ -10,13 +10,7 @@ import Delete from "components/Appointment/Delete";
 import Error from "components/Appointment/Error";
 
 
-
-
-
-
 export default function Appointment(props) {
-
-
 
   const EMPTY = "EMPTY";
   const SHOW = "SHOW";
@@ -34,13 +28,14 @@ export default function Appointment(props) {
     
   );
 
+    // functions below provide functionality for components
+
   function save(name, interviewer) {
+    transition(SAVING) 
     const interview = {
       student: name,
       interviewer,
     };
-
-    transition(SAVING)
 
     props.bookInterview(props.id, interview)
     .then(() =>{
@@ -74,13 +69,15 @@ export default function Appointment(props) {
   function confirmDelete() {
     transition(CONFIRM)
   }
- 
+
+
 
   return (<article data-testid="appointment"> 
     <Header time={props.time} />
     {mode === EMPTY && <Empty onAdd={() => transition(CREATE)} />}
     {mode === SHOW && (
     <Show
+    id={props.id}
     student={props.interview.student}
     interview={props.interview.interviewer}
     onDelete={confirmDelete}
