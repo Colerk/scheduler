@@ -1,6 +1,6 @@
 # Interview Scheduler
+![Friday](https://raw.githubusercontent.com/Colerk/scheduler/master/public/images/Friday.png)
 
-Screenshot
 
 Interview Scheduler is a simple single page app designed to make it easy to schedule and track upcoming interview.
 
@@ -9,9 +9,9 @@ Built with the latest tools and techniques, Interview Scheduler is a React appli
 Components built and manged through Storybook. 
 Unit testing completed with Jest, and end to end testing with Cypress. 
 
-Screenshot
+![Create](https://raw.githubusercontent.com/Colerk/scheduler/master/public/images/Create.png)
 
-Screenshot
+![Delete](https://raw.githubusercontent.com/Colerk/scheduler/master/public/images/Delete.png)
 
 ## Setup
 
